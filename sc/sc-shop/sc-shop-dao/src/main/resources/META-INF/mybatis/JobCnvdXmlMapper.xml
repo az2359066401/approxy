@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vivo.mapper.JobCnvdXmlMapper">
+  <resultMap id="BaseResultMap" type="com.vivo.pojo.JobCnvdXml">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="discovererName" jdbcType="VARCHAR" property="discoverername" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="referenceLink" jdbcType="VARCHAR" property="referencelink" />
+    <result column="cves" jdbcType="VARCHAR" property="cves" />
+    <result column="products" jdbcType="VARCHAR" property="products" />
+    <result column="serverity" jdbcType="VARCHAR" property="serverity" />
+    <result column="patch_name" jdbcType="VARCHAR" property="patchName" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="submit_time" jdbcType="VARCHAR" property="submitTime" />
+    <result column="formal_way" jdbcType="VARCHAR" property="formalWay" />
+    <result column="bids" jdbcType="VARCHAR" property="bids" />
+    <result column="open_time" jdbcType="VARCHAR" property="openTime" />
+    <result column="patch_description" jdbcType="VARCHAR" property="patchDescription" />
+    <result column="is_event" jdbcType="VARCHAR" property="isEvent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, discovererName, description, title, referenceLink, cves, products, serverity, 
+    patch_name, number, submit_time, formal_way, bids, open_time, patch_description, 
+    is_event
+  </sql>
+  <select id="selectByExample" parameterType="com.vivo.pojo.JobCnvdXmlExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from job_cnvd_xml
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from job_cnvd_xml
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from job_cnvd_xml
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vivo.pojo.JobCnvdXmlExample">
+    delete from job_cnvd_xml
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vivo.pojo.JobCnvdXml">
+    insert into job_cnvd_xml (id, discovererName, description, 
+      title, referenceLink, cves, 
+      products, serverity, patch_name, 
+      number, submit_time, formal_way, 
+      bids, open_time, patch_description, 
+      is_event)
+    values (#{id,jdbcType=INTEGER}, #{discoverername,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{referencelink,jdbcType=VARCHAR}, #{cves,jdbcType=VARCHAR}, 
+      #{products,jdbcType=VARCHAR}, #{serverity,jdbcType=VARCHAR}, #{patchName,jdbcType=VARCHAR}, 
+      #{number,jdbcType=VARCHAR}, #{submitTime,jdbcType=VARCHAR}, #{formalWay,jdbcType=VARCHAR}, 
+      #{bids,jdbcType=VARCHAR}, #{openTime,jdbcType=VARCHAR}, #{patchDescription,jdbcType=VARCHAR}, 
+      #{isEvent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vivo.pojo.JobCnvdXml">
+    insert into job_cnvd_xml
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="discoverername != null">
+        discovererName,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="referencelink != null">
+        referenceLink,
+      </if>
+      <if test="cves != null">
+        cves,
+      </if>
+      <if test="products != null">
+        products,
+      </if>
+      <if test="serverity != null">
+        serverity,
+      </if>
+      <if test="patchName != null">
+        patch_name,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="submitTime != null">
+        submit_time,
+      </if>
+      <if test="formalWay != null">
+        formal_way,
+      </if>
+      <if test="bids != null">
+        bids,
+      </if>
+      <if test="openTime != null">
+        open_time,
+      </if>
+      <if test="patchDescription != null">
+        patch_description,
+      </if>
+      <if test="isEvent != null">
+        is_event,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="discoverername != null">
+        #{discoverername,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="referencelink != null">
+        #{referencelink,jdbcType=VARCHAR},
+      </if>
+      <if test="cves != null">
+        #{cves,jdbcType=VARCHAR},
+      </if>
+      <if test="products != null">
+        #{products,jdbcType=VARCHAR},
+      </if>
+      <if test="serverity != null">
+        #{serverity,jdbcType=VARCHAR},
+      </if>
+      <if test="patchName != null">
+        #{patchName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null">
+        #{submitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="formalWay != null">
+        #{formalWay,jdbcType=VARCHAR},
+      </if>
+      <if test="bids != null">
+        #{bids,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null">
+        #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="patchDescription != null">
+        #{patchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="isEvent != null">
+        #{isEvent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.vivo.pojo.JobCnvdXmlExample" resultType="java.lang.Long">
+    select count(*) from job_cnvd_xml
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update job_cnvd_xml
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.discoverername != null">
+        discovererName = #{record.discoverername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referencelink != null">
+        referenceLink = #{record.referencelink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cves != null">
+        cves = #{record.cves,jdbcType=VARCHAR},
+      </if>
+      <if test="record.products != null">
+        products = #{record.products,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serverity != null">
+        serverity = #{record.serverity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patchName != null">
+        patch_name = #{record.patchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.submitTime != null">
+        submit_time = #{record.submitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.formalWay != null">
+        formal_way = #{record.formalWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bids != null">
+        bids = #{record.bids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openTime != null">
+        open_time = #{record.openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patchDescription != null">
+        patch_description = #{record.patchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEvent != null">
+        is_event = #{record.isEvent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update job_cnvd_xml
+    set id = #{record.id,jdbcType=INTEGER},
+      discovererName = #{record.discoverername,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      referenceLink = #{record.referencelink,jdbcType=VARCHAR},
+      cves = #{record.cves,jdbcType=VARCHAR},
+      products = #{record.products,jdbcType=VARCHAR},
+      serverity = #{record.serverity,jdbcType=VARCHAR},
+      patch_name = #{record.patchName,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=VARCHAR},
+      submit_time = #{record.submitTime,jdbcType=VARCHAR},
+      formal_way = #{record.formalWay,jdbcType=VARCHAR},
+      bids = #{record.bids,jdbcType=VARCHAR},
+      open_time = #{record.openTime,jdbcType=VARCHAR},
+      patch_description = #{record.patchDescription,jdbcType=VARCHAR},
+      is_event = #{record.isEvent,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vivo.pojo.JobCnvdXml">
+    update job_cnvd_xml
+    <set>
+      <if test="discoverername != null">
+        discovererName = #{discoverername,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="referencelink != null">
+        referenceLink = #{referencelink,jdbcType=VARCHAR},
+      </if>
+      <if test="cves != null">
+        cves = #{cves,jdbcType=VARCHAR},
+      </if>
+      <if test="products != null">
+        products = #{products,jdbcType=VARCHAR},
+      </if>
+      <if test="serverity != null">
+        serverity = #{serverity,jdbcType=VARCHAR},
+      </if>
+      <if test="patchName != null">
+        patch_name = #{patchName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null">
+        submit_time = #{submitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="formalWay != null">
+        formal_way = #{formalWay,jdbcType=VARCHAR},
+      </if>
+      <if test="bids != null">
+        bids = #{bids,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null">
+        open_time = #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="patchDescription != null">
+        patch_description = #{patchDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="isEvent != null">
+        is_event = #{isEvent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vivo.pojo.JobCnvdXml">
+    update job_cnvd_xml
+    set discovererName = #{discoverername,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      referenceLink = #{referencelink,jdbcType=VARCHAR},
+      cves = #{cves,jdbcType=VARCHAR},
+      products = #{products,jdbcType=VARCHAR},
+      serverity = #{serverity,jdbcType=VARCHAR},
+      patch_name = #{patchName,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=VARCHAR},
+      formal_way = #{formalWay,jdbcType=VARCHAR},
+      bids = #{bids,jdbcType=VARCHAR},
+      open_time = #{openTime,jdbcType=VARCHAR},
+      patch_description = #{patchDescription,jdbcType=VARCHAR},
+      is_event = #{isEvent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

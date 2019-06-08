@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vivo.mapper.JobCnvdArticleMapper">
+  <resultMap id="BaseResultMap" type="com.vivo.pojo.JobCnvdArticle">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bug_title" jdbcType="VARCHAR" property="bugTitle" />
+    <result column="cnvd_id" jdbcType="VARCHAR" property="cnvdId" />
+    <result column="bugtraq_id" jdbcType="VARCHAR" property="bugtraqId" />
+    <result column="publish_date" jdbcType="VARCHAR" property="publishDate" />
+    <result column="bug_level" jdbcType="VARCHAR" property="bugLevel" />
+    <result column="bug_from" jdbcType="VARCHAR" property="bugFrom" />
+    <result column="bug_type" jdbcType="VARCHAR" property="bugType" />
+    <result column="cve_id" jdbcType="VARCHAR" property="cveId" />
+    <result column="cve_id_link" jdbcType="VARCHAR" property="cveIdLink" />
+    <result column="bug_patch_link" jdbcType="VARCHAR" property="bugPatchLink" />
+    <result column="verify_falg" jdbcType="VARCHAR" property="verifyFalg" />
+    <result column="submit_date" jdbcType="VARCHAR" property="submitDate" />
+    <result column="record_date" jdbcType="VARCHAR" property="recordDate" />
+    <result column="update_date" jdbcType="VARCHAR" property="updateDate" />
+    <result column="bug_attachment" jdbcType="VARCHAR" property="bugAttachment" />
+    <result column="hits" jdbcType="VARCHAR" property="hits" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="key_words" jdbcType="VARCHAR" property="keyWords" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="bug_version" jdbcType="VARCHAR" property="bugVersion" />
+    <result column="bug_reason" jdbcType="VARCHAR" property="bugReason" />
+    <result column="bug_threat" jdbcType="VARCHAR" property="bugThreat" />
+    <result column="bug_attack_position" jdbcType="VARCHAR" property="bugAttackPosition" />
+    <result column="cve_score" jdbcType="VARCHAR" property="cveScore" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="ext1" jdbcType="VARCHAR" property="ext1" />
+    <result column="ext2" jdbcType="VARCHAR" property="ext2" />
+    <result column="ext3" jdbcType="VARCHAR" property="ext3" />
+    <result column="ext4" jdbcType="VARCHAR" property="ext4" />
+    <result column="ext5" jdbcType="VARCHAR" property="ext5" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.vivo.pojo.JobCnvdArticleWithBLOBs">
+    <result column="bug_corp" jdbcType="LONGVARCHAR" property="bugCorp" />
+    <result column="bug_desc" jdbcType="LONGVARCHAR" property="bugDesc" />
+    <result column="reference_link" jdbcType="LONGVARCHAR" property="referenceLink" />
+    <result column="bug_solution" jdbcType="LONGVARCHAR" property="bugSolution" />
+    <result column="bug_patch" jdbcType="LONGVARCHAR" property="bugPatch" />
+    <result column="comment" jdbcType="LONGVARCHAR" property="comment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bug_title, cnvd_id, bugtraq_id, publish_date, bug_level, bug_from, bug_type, 
+    cve_id, cve_id_link, bug_patch_link, verify_falg, submit_date, record_date, update_date, 
+    bug_attachment, hits, create_date, key_words, manufacturer, bug_version, bug_reason, 
+    bug_threat, bug_attack_position, cve_score, status, ext1, ext2, ext3, ext4, ext5
+  </sql>
+  <sql id="Blob_Column_List">
+    bug_corp, bug_desc, reference_link, bug_solution, bug_patch, comment
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.vivo.pojo.JobCnvdArticleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from job_cnvd_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.vivo.pojo.JobCnvdArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from job_cnvd_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from job_cnvd_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from job_cnvd_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vivo.pojo.JobCnvdArticleExample">
+    delete from job_cnvd_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vivo.pojo.JobCnvdArticleWithBLOBs">
+    insert into job_cnvd_article (id, bug_title, cnvd_id, 
+      bugtraq_id, publish_date, bug_level, 
+      bug_from, bug_type, cve_id, 
+      cve_id_link, bug_patch_link, verify_falg, 
+      submit_date, record_date, update_date, 
+      bug_attachment, hits, create_date, 
+      key_words, manufacturer, bug_version, 
+      bug_reason, bug_threat, bug_attack_position, 
+      cve_score, status, ext1, 
+      ext2, ext3, ext4, ext5, 
+      bug_corp, bug_desc, reference_link, 
+      bug_solution, bug_patch, comment
+      )
+    values (#{id,jdbcType=INTEGER}, #{bugTitle,jdbcType=VARCHAR}, #{cnvdId,jdbcType=VARCHAR}, 
+      #{bugtraqId,jdbcType=VARCHAR}, #{publishDate,jdbcType=VARCHAR}, #{bugLevel,jdbcType=VARCHAR}, 
+      #{bugFrom,jdbcType=VARCHAR}, #{bugType,jdbcType=VARCHAR}, #{cveId,jdbcType=VARCHAR}, 
+      #{cveIdLink,jdbcType=VARCHAR}, #{bugPatchLink,jdbcType=VARCHAR}, #{verifyFalg,jdbcType=VARCHAR}, 
+      #{submitDate,jdbcType=VARCHAR}, #{recordDate,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}, 
+      #{bugAttachment,jdbcType=VARCHAR}, #{hits,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, 
+      #{keyWords,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, #{bugVersion,jdbcType=VARCHAR}, 
+      #{bugReason,jdbcType=VARCHAR}, #{bugThreat,jdbcType=VARCHAR}, #{bugAttackPosition,jdbcType=VARCHAR}, 
+      #{cveScore,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, #{ext5,jdbcType=VARCHAR}, 
+      #{bugCorp,jdbcType=LONGVARCHAR}, #{bugDesc,jdbcType=LONGVARCHAR}, #{referenceLink,jdbcType=LONGVARCHAR}, 
+      #{bugSolution,jdbcType=LONGVARCHAR}, #{bugPatch,jdbcType=LONGVARCHAR}, #{comment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vivo.pojo.JobCnvdArticleWithBLOBs">
+    insert into job_cnvd_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bugTitle != null">
+        bug_title,
+      </if>
+      <if test="cnvdId != null">
+        cnvd_id,
+      </if>
+      <if test="bugtraqId != null">
+        bugtraq_id,
+      </if>
+      <if test="publishDate != null">
+        publish_date,
+      </if>
+      <if test="bugLevel != null">
+        bug_level,
+      </if>
+      <if test="bugFrom != null">
+        bug_from,
+      </if>
+      <if test="bugType != null">
+        bug_type,
+      </if>
+      <if test="cveId != null">
+        cve_id,
+      </if>
+      <if test="cveIdLink != null">
+        cve_id_link,
+      </if>
+      <if test="bugPatchLink != null">
+        bug_patch_link,
+      </if>
+      <if test="verifyFalg != null">
+        verify_falg,
+      </if>
+      <if test="submitDate != null">
+        submit_date,
+      </if>
+      <if test="recordDate != null">
+        record_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="bugAttachment != null">
+        bug_attachment,
+      </if>
+      <if test="hits != null">
+        hits,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="keyWords != null">
+        key_words,
+      </if>
+      <if test="manufacturer != null">
+        manufacturer,
+      </if>
+      <if test="bugVersion != null">
+        bug_version,
+      </if>
+      <if test="bugReason != null">
+        bug_reason,
+      </if>
+      <if test="bugThreat != null">
+        bug_threat,
+      </if>
+      <if test="bugAttackPosition != null">
+        bug_attack_position,
+      </if>
+      <if test="cveScore != null">
+        cve_score,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="ext1 != null">
+        ext1,
+      </if>
+      <if test="ext2 != null">
+        ext2,
+      </if>
+      <if test="ext3 != null">
+        ext3,
+      </if>
+      <if test="ext4 != null">
+        ext4,
+      </if>
+      <if test="ext5 != null">
+        ext5,
+      </if>
+      <if test="bugCorp != null">
+        bug_corp,
+      </if>
+      <if test="bugDesc != null">
+        bug_desc,
+      </if>
+      <if test="referenceLink != null">
+        reference_link,
+      </if>
+      <if test="bugSolution != null">
+        bug_solution,
+      </if>
+      <if test="bugPatch != null">
+        bug_patch,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bugTitle != null">
+        #{bugTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="cnvdId != null">
+        #{cnvdId,jdbcType=VARCHAR},
+      </if>
+      <if test="bugtraqId != null">
+        #{bugtraqId,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        #{publishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="bugLevel != null">
+        #{bugLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="bugFrom != null">
+        #{bugFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="bugType != null">
+        #{bugType,jdbcType=VARCHAR},
+      </if>
+      <if test="cveId != null">
+        #{cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="cveIdLink != null">
+        #{cveIdLink,jdbcType=VARCHAR},
+      </if>
+      <if test="bugPatchLink != null">
+        #{bugPatchLink,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyFalg != null">
+        #{verifyFalg,jdbcType=VARCHAR},
+      </if>
+      <if test="submitDate != null">
+        #{submitDate,jdbcType=VARCHAR},
+      </if>
+      <if test="recordDate != null">
+        #{recordDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="bugAttachment != null">
+        #{bugAttachment,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null">
+        #{hits,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="keyWords != null">
+        #{keyWords,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="bugVersion != null">
+        #{bugVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="bugReason != null">
+        #{bugReason,jdbcType=VARCHAR},
+      </if>
+      <if test="bugThreat != null">
+        #{bugThreat,jdbcType=VARCHAR},
+      </if>
+      <if test="bugAttackPosition != null">
+        #{bugAttackPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="cveScore != null">
+        #{cveScore,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null">
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null">
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null">
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null">
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null">
+        #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="bugCorp != null">
+        #{bugCorp,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bugDesc != null">
+        #{bugDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="referenceLink != null">
+        #{referenceLink,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bugSolution != null">
+        #{bugSolution,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bugPatch != null">
+        #{bugPatch,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.vivo.pojo.JobCnvdArticleExample" resultType="java.lang.Long">
+    select count(*) from job_cnvd_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update job_cnvd_article
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bugTitle != null">
+        bug_title = #{record.bugTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cnvdId != null">
+        cnvd_id = #{record.cnvdId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugtraqId != null">
+        bugtraq_id = #{record.bugtraqId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishDate != null">
+        publish_date = #{record.publishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugLevel != null">
+        bug_level = #{record.bugLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugFrom != null">
+        bug_from = #{record.bugFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugType != null">
+        bug_type = #{record.bugType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cveId != null">
+        cve_id = #{record.cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cveIdLink != null">
+        cve_id_link = #{record.cveIdLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugPatchLink != null">
+        bug_patch_link = #{record.bugPatchLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.verifyFalg != null">
+        verify_falg = #{record.verifyFalg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.submitDate != null">
+        submit_date = #{record.submitDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordDate != null">
+        record_date = #{record.recordDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugAttachment != null">
+        bug_attachment = #{record.bugAttachment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hits != null">
+        hits = #{record.hits,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyWords != null">
+        key_words = #{record.keyWords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturer != null">
+        manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugVersion != null">
+        bug_version = #{record.bugVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugReason != null">
+        bug_reason = #{record.bugReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugThreat != null">
+        bug_threat = #{record.bugThreat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugAttackPosition != null">
+        bug_attack_position = #{record.bugAttackPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cveScore != null">
+        cve_score = #{record.cveScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext1 != null">
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null">
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext3 != null">
+        ext3 = #{record.ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext4 != null">
+        ext4 = #{record.ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext5 != null">
+        ext5 = #{record.ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bugCorp != null">
+        bug_corp = #{record.bugCorp,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.bugDesc != null">
+        bug_desc = #{record.bugDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.referenceLink != null">
+        reference_link = #{record.referenceLink,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.bugSolution != null">
+        bug_solution = #{record.bugSolution,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.bugPatch != null">
+        bug_patch = #{record.bugPatch,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.comment != null">
+        comment = #{record.comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update job_cnvd_article
+    set id = #{record.id,jdbcType=INTEGER},
+      bug_title = #{record.bugTitle,jdbcType=VARCHAR},
+      cnvd_id = #{record.cnvdId,jdbcType=VARCHAR},
+      bugtraq_id = #{record.bugtraqId,jdbcType=VARCHAR},
+      publish_date = #{record.publishDate,jdbcType=VARCHAR},
+      bug_level = #{record.bugLevel,jdbcType=VARCHAR},
+      bug_from = #{record.bugFrom,jdbcType=VARCHAR},
+      bug_type = #{record.bugType,jdbcType=VARCHAR},
+      cve_id = #{record.cveId,jdbcType=VARCHAR},
+      cve_id_link = #{record.cveIdLink,jdbcType=VARCHAR},
+      bug_patch_link = #{record.bugPatchLink,jdbcType=VARCHAR},
+      verify_falg = #{record.verifyFalg,jdbcType=VARCHAR},
+      submit_date = #{record.submitDate,jdbcType=VARCHAR},
+      record_date = #{record.recordDate,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=VARCHAR},
+      bug_attachment = #{record.bugAttachment,jdbcType=VARCHAR},
+      hits = #{record.hits,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=VARCHAR},
+      key_words = #{record.keyWords,jdbcType=VARCHAR},
+      manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      bug_version = #{record.bugVersion,jdbcType=VARCHAR},
+      bug_reason = #{record.bugReason,jdbcType=VARCHAR},
+      bug_threat = #{record.bugThreat,jdbcType=VARCHAR},
+      bug_attack_position = #{record.bugAttackPosition,jdbcType=VARCHAR},
+      cve_score = #{record.cveScore,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR},
+      ext3 = #{record.ext3,jdbcType=VARCHAR},
+      ext4 = #{record.ext4,jdbcType=VARCHAR},
+      ext5 = #{record.ext5,jdbcType=VARCHAR},
+      bug_corp = #{record.bugCorp,jdbcType=LONGVARCHAR},
+      bug_desc = #{record.bugDesc,jdbcType=LONGVARCHAR},
+      reference_link = #{record.referenceLink,jdbcType=LONGVARCHAR},
+      bug_solution = #{record.bugSolution,jdbcType=LONGVARCHAR},
+      bug_patch = #{record.bugPatch,jdbcType=LONGVARCHAR},
+      comment = #{record.comment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update job_cnvd_article
+    set id = #{record.id,jdbcType=INTEGER},
+      bug_title = #{record.bugTitle,jdbcType=VARCHAR},
+      cnvd_id = #{record.cnvdId,jdbcType=VARCHAR},
+      bugtraq_id = #{record.bugtraqId,jdbcType=VARCHAR},
+      publish_date = #{record.publishDate,jdbcType=VARCHAR},
+      bug_level = #{record.bugLevel,jdbcType=VARCHAR},
+      bug_from = #{record.bugFrom,jdbcType=VARCHAR},
+      bug_type = #{record.bugType,jdbcType=VARCHAR},
+      cve_id = #{record.cveId,jdbcType=VARCHAR},
+      cve_id_link = #{record.cveIdLink,jdbcType=VARCHAR},
+      bug_patch_link = #{record.bugPatchLink,jdbcType=VARCHAR},
+      verify_falg = #{record.verifyFalg,jdbcType=VARCHAR},
+      submit_date = #{record.submitDate,jdbcType=VARCHAR},
+      record_date = #{record.recordDate,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=VARCHAR},
+      bug_attachment = #{record.bugAttachment,jdbcType=VARCHAR},
+      hits = #{record.hits,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=VARCHAR},
+      key_words = #{record.keyWords,jdbcType=VARCHAR},
+      manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      bug_version = #{record.bugVersion,jdbcType=VARCHAR},
+      bug_reason = #{record.bugReason,jdbcType=VARCHAR},
+      bug_threat = #{record.bugThreat,jdbcType=VARCHAR},
+      bug_attack_position = #{record.bugAttackPosition,jdbcType=VARCHAR},
+      cve_score = #{record.cveScore,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR},
+      ext3 = #{record.ext3,jdbcType=VARCHAR},
+      ext4 = #{record.ext4,jdbcType=VARCHAR},
+      ext5 = #{record.ext5,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vivo.pojo.JobCnvdArticleWithBLOBs">
+    update job_cnvd_article
+    <set>
+      <if test="bugTitle != null">
+        bug_title = #{bugTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="cnvdId != null">
+        cnvd_id = #{cnvdId,jdbcType=VARCHAR},
+      </if>
+      <if test="bugtraqId != null">
+        bugtraq_id = #{bugtraqId,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        publish_date = #{publishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="bugLevel != null">
+        bug_level = #{bugLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="bugFrom != null">
+        bug_from = #{bugFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="bugType != null">
+        bug_type = #{bugType,jdbcType=VARCHAR},
+      </if>
+      <if test="cveId != null">
+        cve_id = #{cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="cveIdLink != null">
+        cve_id_link = #{cveIdLink,jdbcType=VARCHAR},
+      </if>
+      <if test="bugPatchLink != null">
+        bug_patch_link = #{bugPatchLink,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyFalg != null">
+        verify_falg = #{verifyFalg,jdbcType=VARCHAR},
+      </if>
+      <if test="submitDate != null">
+        submit_date = #{submitDate,jdbcType=VARCHAR},
+      </if>
+      <if test="recordDate != null">
+        record_date = #{recordDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="bugAttachment != null">
+        bug_attachment = #{bugAttachment,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null">
+        hits = #{hits,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="keyWords != null">
+        key_words = #{keyWords,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="bugVersion != null">
+        bug_version = #{bugVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="bugReason != null">
+        bug_reason = #{bugReason,jdbcType=VARCHAR},
+      </if>
+      <if test="bugThreat != null">
+        bug_threat = #{bugThreat,jdbcType=VARCHAR},
+      </if>
+      <if test="bugAttackPosition != null">
+        bug_attack_position = #{bugAttackPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="cveScore != null">
+        cve_score = #{cveScore,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null">
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null">
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null">
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null">
+        ext4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null">
+        ext5 = #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="bugCorp != null">
+        bug_corp = #{bugCorp,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bugDesc != null">
+        bug_desc = #{bugDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="referenceLink != null">
+        reference_link = #{referenceLink,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bugSolution != null">
+        bug_solution = #{bugSolution,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bugPatch != null">
+        bug_patch = #{bugPatch,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.vivo.pojo.JobCnvdArticleWithBLOBs">
+    update job_cnvd_article
+    set bug_title = #{bugTitle,jdbcType=VARCHAR},
+      cnvd_id = #{cnvdId,jdbcType=VARCHAR},
+      bugtraq_id = #{bugtraqId,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=VARCHAR},
+      bug_level = #{bugLevel,jdbcType=VARCHAR},
+      bug_from = #{bugFrom,jdbcType=VARCHAR},
+      bug_type = #{bugType,jdbcType=VARCHAR},
+      cve_id = #{cveId,jdbcType=VARCHAR},
+      cve_id_link = #{cveIdLink,jdbcType=VARCHAR},
+      bug_patch_link = #{bugPatchLink,jdbcType=VARCHAR},
+      verify_falg = #{verifyFalg,jdbcType=VARCHAR},
+      submit_date = #{submitDate,jdbcType=VARCHAR},
+      record_date = #{recordDate,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      bug_attachment = #{bugAttachment,jdbcType=VARCHAR},
+      hits = #{hits,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      key_words = #{keyWords,jdbcType=VARCHAR},
+      manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      bug_version = #{bugVersion,jdbcType=VARCHAR},
+      bug_reason = #{bugReason,jdbcType=VARCHAR},
+      bug_threat = #{bugThreat,jdbcType=VARCHAR},
+      bug_attack_position = #{bugAttackPosition,jdbcType=VARCHAR},
+      cve_score = #{cveScore,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR},
+      ext5 = #{ext5,jdbcType=VARCHAR},
+      bug_corp = #{bugCorp,jdbcType=LONGVARCHAR},
+      bug_desc = #{bugDesc,jdbcType=LONGVARCHAR},
+      reference_link = #{referenceLink,jdbcType=LONGVARCHAR},
+      bug_solution = #{bugSolution,jdbcType=LONGVARCHAR},
+      bug_patch = #{bugPatch,jdbcType=LONGVARCHAR},
+      comment = #{comment,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vivo.pojo.JobCnvdArticle">
+    update job_cnvd_article
+    set bug_title = #{bugTitle,jdbcType=VARCHAR},
+      cnvd_id = #{cnvdId,jdbcType=VARCHAR},
+      bugtraq_id = #{bugtraqId,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=VARCHAR},
+      bug_level = #{bugLevel,jdbcType=VARCHAR},
+      bug_from = #{bugFrom,jdbcType=VARCHAR},
+      bug_type = #{bugType,jdbcType=VARCHAR},
+      cve_id = #{cveId,jdbcType=VARCHAR},
+      cve_id_link = #{cveIdLink,jdbcType=VARCHAR},
+      bug_patch_link = #{bugPatchLink,jdbcType=VARCHAR},
+      verify_falg = #{verifyFalg,jdbcType=VARCHAR},
+      submit_date = #{submitDate,jdbcType=VARCHAR},
+      record_date = #{recordDate,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      bug_attachment = #{bugAttachment,jdbcType=VARCHAR},
+      hits = #{hits,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      key_words = #{keyWords,jdbcType=VARCHAR},
+      manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      bug_version = #{bugVersion,jdbcType=VARCHAR},
+      bug_reason = #{bugReason,jdbcType=VARCHAR},
+      bug_threat = #{bugThreat,jdbcType=VARCHAR},
+      bug_attack_position = #{bugAttackPosition,jdbcType=VARCHAR},
+      cve_score = #{cveScore,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR},
+      ext5 = #{ext5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

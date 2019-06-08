@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vivo.mapper.TbConfigMapper">
+  <resultMap id="BaseResultMap" type="com.vivo.pojo.TbConfig">
+    <id column="CFG_CODE" jdbcType="VARCHAR" property="cfgCode" />
+    <result column="CFG_NAME" jdbcType="VARCHAR" property="cfgName" />
+    <result column="CFG_VALUE" jdbcType="VARCHAR" property="cfgValue" />
+    <result column="P_CFG_CODE" jdbcType="VARCHAR" property="pCfgCode" />
+    <result column="SEQ_NO" jdbcType="INTEGER" property="seqNo" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="EXT1" jdbcType="VARCHAR" property="ext1" />
+    <result column="EXT2" jdbcType="VARCHAR" property="ext2" />
+    <result column="EXT3" jdbcType="VARCHAR" property="ext3" />
+    <result column="EXT4" jdbcType="VARCHAR" property="ext4" />
+    <result column="EXT5" jdbcType="VARCHAR" property="ext5" />
+    <result column="R_CFG_CODE" jdbcType="VARCHAR" property="rCfgCode" />
+    <result column="CRT_USERID" jdbcType="VARCHAR" property="crtUserid" />
+    <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+    <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="UPDATED_BY" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="UPDATED_TIME" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CFG_CODE, CFG_NAME, CFG_VALUE, P_CFG_CODE, SEQ_NO, DESCRIPTION, REMARK, EXT1, EXT2, 
+    EXT3, EXT4, EXT5, R_CFG_CODE, CRT_USERID, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.vivo.pojo.TbConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_config
+    where CFG_CODE = #{cfgCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_config
+    where CFG_CODE = #{cfgCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vivo.pojo.TbConfigExample">
+    delete from tb_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vivo.pojo.TbConfig">
+    insert into tb_config (CFG_CODE, CFG_NAME, CFG_VALUE, 
+      P_CFG_CODE, SEQ_NO, DESCRIPTION, 
+      REMARK, EXT1, EXT2, 
+      EXT3, EXT4, EXT5, R_CFG_CODE, 
+      CRT_USERID, CREATED_BY, CREATED_TIME, 
+      UPDATED_BY, UPDATED_TIME)
+    values (#{cfgCode,jdbcType=VARCHAR}, #{cfgName,jdbcType=VARCHAR}, #{cfgValue,jdbcType=VARCHAR}, 
+      #{pCfgCode,jdbcType=VARCHAR}, #{seqNo,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR}, 
+      #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, #{ext5,jdbcType=VARCHAR}, #{rCfgCode,jdbcType=VARCHAR}, 
+      #{crtUserid,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vivo.pojo.TbConfig">
+    insert into tb_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cfgCode != null">
+        CFG_CODE,
+      </if>
+      <if test="cfgName != null">
+        CFG_NAME,
+      </if>
+      <if test="cfgValue != null">
+        CFG_VALUE,
+      </if>
+      <if test="pCfgCode != null">
+        P_CFG_CODE,
+      </if>
+      <if test="seqNo != null">
+        SEQ_NO,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="ext1 != null">
+        EXT1,
+      </if>
+      <if test="ext2 != null">
+        EXT2,
+      </if>
+      <if test="ext3 != null">
+        EXT3,
+      </if>
+      <if test="ext4 != null">
+        EXT4,
+      </if>
+      <if test="ext5 != null">
+        EXT5,
+      </if>
+      <if test="rCfgCode != null">
+        R_CFG_CODE,
+      </if>
+      <if test="crtUserid != null">
+        CRT_USERID,
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cfgCode != null">
+        #{cfgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cfgName != null">
+        #{cfgName,jdbcType=VARCHAR},
+      </if>
+      <if test="cfgValue != null">
+        #{cfgValue,jdbcType=VARCHAR},
+      </if>
+      <if test="pCfgCode != null">
+        #{pCfgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seqNo != null">
+        #{seqNo,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null">
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null">
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null">
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null">
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null">
+        #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="rCfgCode != null">
+        #{rCfgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUserid != null">
+        #{crtUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.vivo.pojo.TbConfigExample" resultType="java.lang.Long">
+    select count(*) from tb_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_config
+    <set>
+      <if test="record.cfgCode != null">
+        CFG_CODE = #{record.cfgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cfgName != null">
+        CFG_NAME = #{record.cfgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cfgValue != null">
+        CFG_VALUE = #{record.cfgValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pCfgCode != null">
+        P_CFG_CODE = #{record.pCfgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seqNo != null">
+        SEQ_NO = #{record.seqNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext1 != null">
+        EXT1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null">
+        EXT2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext3 != null">
+        EXT3 = #{record.ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext4 != null">
+        EXT4 = #{record.ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext5 != null">
+        EXT5 = #{record.ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rCfgCode != null">
+        R_CFG_CODE = #{record.rCfgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUserid != null">
+        CRT_USERID = #{record.crtUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdBy != null">
+        CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null">
+        UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_config
+    set CFG_CODE = #{record.cfgCode,jdbcType=VARCHAR},
+      CFG_NAME = #{record.cfgName,jdbcType=VARCHAR},
+      CFG_VALUE = #{record.cfgValue,jdbcType=VARCHAR},
+      P_CFG_CODE = #{record.pCfgCode,jdbcType=VARCHAR},
+      SEQ_NO = #{record.seqNo,jdbcType=INTEGER},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      EXT1 = #{record.ext1,jdbcType=VARCHAR},
+      EXT2 = #{record.ext2,jdbcType=VARCHAR},
+      EXT3 = #{record.ext3,jdbcType=VARCHAR},
+      EXT4 = #{record.ext4,jdbcType=VARCHAR},
+      EXT5 = #{record.ext5,jdbcType=VARCHAR},
+      R_CFG_CODE = #{record.rCfgCode,jdbcType=VARCHAR},
+      CRT_USERID = #{record.crtUserid,jdbcType=VARCHAR},
+      CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vivo.pojo.TbConfig">
+    update tb_config
+    <set>
+      <if test="cfgName != null">
+        CFG_NAME = #{cfgName,jdbcType=VARCHAR},
+      </if>
+      <if test="cfgValue != null">
+        CFG_VALUE = #{cfgValue,jdbcType=VARCHAR},
+      </if>
+      <if test="pCfgCode != null">
+        P_CFG_CODE = #{pCfgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seqNo != null">
+        SEQ_NO = #{seqNo,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null">
+        EXT1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null">
+        EXT2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null">
+        EXT3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null">
+        EXT4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null">
+        EXT5 = #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="rCfgCode != null">
+        R_CFG_CODE = #{rCfgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUserid != null">
+        CRT_USERID = #{crtUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CFG_CODE = #{cfgCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vivo.pojo.TbConfig">
+    update tb_config
+    set CFG_NAME = #{cfgName,jdbcType=VARCHAR},
+      CFG_VALUE = #{cfgValue,jdbcType=VARCHAR},
+      P_CFG_CODE = #{pCfgCode,jdbcType=VARCHAR},
+      SEQ_NO = #{seqNo,jdbcType=INTEGER},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      EXT1 = #{ext1,jdbcType=VARCHAR},
+      EXT2 = #{ext2,jdbcType=VARCHAR},
+      EXT3 = #{ext3,jdbcType=VARCHAR},
+      EXT4 = #{ext4,jdbcType=VARCHAR},
+      EXT5 = #{ext5,jdbcType=VARCHAR},
+      R_CFG_CODE = #{rCfgCode,jdbcType=VARCHAR},
+      CRT_USERID = #{crtUserid,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP}
+    where CFG_CODE = #{cfgCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vivo.mapper.RoomInfoMapper">
+  <resultMap id="BaseResultMap" type="com.vivo.pojo.RoomInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="room_id" jdbcType="VARCHAR" property="roomId" />
+    <result column="rent_type" jdbcType="VARCHAR" property="rentType" />
+    <result column="room_type" jdbcType="VARCHAR" property="roomType" />
+    <result column="floor_space" jdbcType="VARCHAR" property="floorSpace" />
+    <result column="room_direct" jdbcType="VARCHAR" property="roomDirect" />
+    <result column="floor_level" jdbcType="VARCHAR" property="floorLevel" />
+    <result column="room_decoration" jdbcType="VARCHAR" property="roomDecoration" />
+    <result column="house_estate" jdbcType="VARCHAR" property="houseEstate" />
+    <result column="room_address" jdbcType="VARCHAR" property="roomAddress" />
+    <result column="refresh_date" jdbcType="VARCHAR" property="refreshDate" />
+    <result column="checkin_date" jdbcType="VARCHAR" property="checkinDate" />
+    <result column="contact_way" jdbcType="VARCHAR" property="contactWay" />
+    <result column="room_des" jdbcType="VARCHAR" property="roomDes" />
+    <result column="room_support" jdbcType="VARCHAR" property="roomSupport" />
+    <result column="room_pic" jdbcType="VARCHAR" property="roomPic" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, room_id, rent_type, room_type, floor_space, room_direct, floor_level, room_decoration, 
+    house_estate, room_address, refresh_date, checkin_date, contact_way, room_des, room_support, 
+    room_pic
+  </sql>
+  <select id="selectByExample" parameterType="com.vivo.pojo.RoomInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from room_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from room_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from room_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vivo.pojo.RoomInfoExample">
+    delete from room_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vivo.pojo.RoomInfo">
+    insert into room_info (id, room_id, rent_type, 
+      room_type, floor_space, room_direct, 
+      floor_level, room_decoration, house_estate, 
+      room_address, refresh_date, checkin_date, 
+      contact_way, room_des, room_support, 
+      room_pic)
+    values (#{id,jdbcType=INTEGER}, #{roomId,jdbcType=VARCHAR}, #{rentType,jdbcType=VARCHAR}, 
+      #{roomType,jdbcType=VARCHAR}, #{floorSpace,jdbcType=VARCHAR}, #{roomDirect,jdbcType=VARCHAR}, 
+      #{floorLevel,jdbcType=VARCHAR}, #{roomDecoration,jdbcType=VARCHAR}, #{houseEstate,jdbcType=VARCHAR}, 
+      #{roomAddress,jdbcType=VARCHAR}, #{refreshDate,jdbcType=VARCHAR}, #{checkinDate,jdbcType=VARCHAR}, 
+      #{contactWay,jdbcType=VARCHAR}, #{roomDes,jdbcType=VARCHAR}, #{roomSupport,jdbcType=VARCHAR}, 
+      #{roomPic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vivo.pojo.RoomInfo">
+    insert into room_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roomId != null">
+        room_id,
+      </if>
+      <if test="rentType != null">
+        rent_type,
+      </if>
+      <if test="roomType != null">
+        room_type,
+      </if>
+      <if test="floorSpace != null">
+        floor_space,
+      </if>
+      <if test="roomDirect != null">
+        room_direct,
+      </if>
+      <if test="floorLevel != null">
+        floor_level,
+      </if>
+      <if test="roomDecoration != null">
+        room_decoration,
+      </if>
+      <if test="houseEstate != null">
+        house_estate,
+      </if>
+      <if test="roomAddress != null">
+        room_address,
+      </if>
+      <if test="refreshDate != null">
+        refresh_date,
+      </if>
+      <if test="checkinDate != null">
+        checkin_date,
+      </if>
+      <if test="contactWay != null">
+        contact_way,
+      </if>
+      <if test="roomDes != null">
+        room_des,
+      </if>
+      <if test="roomSupport != null">
+        room_support,
+      </if>
+      <if test="roomPic != null">
+        room_pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null">
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="rentType != null">
+        #{rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null">
+        #{roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="floorSpace != null">
+        #{floorSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="roomDirect != null">
+        #{roomDirect,jdbcType=VARCHAR},
+      </if>
+      <if test="floorLevel != null">
+        #{floorLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="roomDecoration != null">
+        #{roomDecoration,jdbcType=VARCHAR},
+      </if>
+      <if test="houseEstate != null">
+        #{houseEstate,jdbcType=VARCHAR},
+      </if>
+      <if test="roomAddress != null">
+        #{roomAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="refreshDate != null">
+        #{refreshDate,jdbcType=VARCHAR},
+      </if>
+      <if test="checkinDate != null">
+        #{checkinDate,jdbcType=VARCHAR},
+      </if>
+      <if test="contactWay != null">
+        #{contactWay,jdbcType=VARCHAR},
+      </if>
+      <if test="roomDes != null">
+        #{roomDes,jdbcType=VARCHAR},
+      </if>
+      <if test="roomSupport != null">
+        #{roomSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPic != null">
+        #{roomPic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.vivo.pojo.RoomInfoExample" resultType="java.lang.Long">
+    select count(*) from room_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update room_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomId != null">
+        room_id = #{record.roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rentType != null">
+        rent_type = #{record.rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomType != null">
+        room_type = #{record.roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorSpace != null">
+        floor_space = #{record.floorSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomDirect != null">
+        room_direct = #{record.roomDirect,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorLevel != null">
+        floor_level = #{record.floorLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomDecoration != null">
+        room_decoration = #{record.roomDecoration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseEstate != null">
+        house_estate = #{record.houseEstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomAddress != null">
+        room_address = #{record.roomAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refreshDate != null">
+        refresh_date = #{record.refreshDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkinDate != null">
+        checkin_date = #{record.checkinDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactWay != null">
+        contact_way = #{record.contactWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomDes != null">
+        room_des = #{record.roomDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomSupport != null">
+        room_support = #{record.roomSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomPic != null">
+        room_pic = #{record.roomPic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update room_info
+    set id = #{record.id,jdbcType=INTEGER},
+      room_id = #{record.roomId,jdbcType=VARCHAR},
+      rent_type = #{record.rentType,jdbcType=VARCHAR},
+      room_type = #{record.roomType,jdbcType=VARCHAR},
+      floor_space = #{record.floorSpace,jdbcType=VARCHAR},
+      room_direct = #{record.roomDirect,jdbcType=VARCHAR},
+      floor_level = #{record.floorLevel,jdbcType=VARCHAR},
+      room_decoration = #{record.roomDecoration,jdbcType=VARCHAR},
+      house_estate = #{record.houseEstate,jdbcType=VARCHAR},
+      room_address = #{record.roomAddress,jdbcType=VARCHAR},
+      refresh_date = #{record.refreshDate,jdbcType=VARCHAR},
+      checkin_date = #{record.checkinDate,jdbcType=VARCHAR},
+      contact_way = #{record.contactWay,jdbcType=VARCHAR},
+      room_des = #{record.roomDes,jdbcType=VARCHAR},
+      room_support = #{record.roomSupport,jdbcType=VARCHAR},
+      room_pic = #{record.roomPic,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vivo.pojo.RoomInfo">
+    update room_info
+    <set>
+      <if test="roomId != null">
+        room_id = #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="rentType != null">
+        rent_type = #{rentType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null">
+        room_type = #{roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="floorSpace != null">
+        floor_space = #{floorSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="roomDirect != null">
+        room_direct = #{roomDirect,jdbcType=VARCHAR},
+      </if>
+      <if test="floorLevel != null">
+        floor_level = #{floorLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="roomDecoration != null">
+        room_decoration = #{roomDecoration,jdbcType=VARCHAR},
+      </if>
+      <if test="houseEstate != null">
+        house_estate = #{houseEstate,jdbcType=VARCHAR},
+      </if>
+      <if test="roomAddress != null">
+        room_address = #{roomAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="refreshDate != null">
+        refresh_date = #{refreshDate,jdbcType=VARCHAR},
+      </if>
+      <if test="checkinDate != null">
+        checkin_date = #{checkinDate,jdbcType=VARCHAR},
+      </if>
+      <if test="contactWay != null">
+        contact_way = #{contactWay,jdbcType=VARCHAR},
+      </if>
+      <if test="roomDes != null">
+        room_des = #{roomDes,jdbcType=VARCHAR},
+      </if>
+      <if test="roomSupport != null">
+        room_support = #{roomSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPic != null">
+        room_pic = #{roomPic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vivo.pojo.RoomInfo">
+    update room_info
+    set room_id = #{roomId,jdbcType=VARCHAR},
+      rent_type = #{rentType,jdbcType=VARCHAR},
+      room_type = #{roomType,jdbcType=VARCHAR},
+      floor_space = #{floorSpace,jdbcType=VARCHAR},
+      room_direct = #{roomDirect,jdbcType=VARCHAR},
+      floor_level = #{floorLevel,jdbcType=VARCHAR},
+      room_decoration = #{roomDecoration,jdbcType=VARCHAR},
+      house_estate = #{houseEstate,jdbcType=VARCHAR},
+      room_address = #{roomAddress,jdbcType=VARCHAR},
+      refresh_date = #{refreshDate,jdbcType=VARCHAR},
+      checkin_date = #{checkinDate,jdbcType=VARCHAR},
+      contact_way = #{contactWay,jdbcType=VARCHAR},
+      room_des = #{roomDes,jdbcType=VARCHAR},
+      room_support = #{roomSupport,jdbcType=VARCHAR},
+      room_pic = #{roomPic,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

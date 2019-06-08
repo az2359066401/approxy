@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<context id="testTables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/article_spider?serverTimezone=CTT" userId="root"
+			password="123456">
+		</jdbcConnection> 
+		<!--  <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:orcl" 
+			userId="SYSTEM"
+			password="123456">
+		</jdbcConnection>  -->
+
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 
+			NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- targetProject:生成PO类的位置 -->
+		<javaModelGenerator targetPackage="com.vivo.cve.dao.module"
+			targetProject="D:\work_idea\sc\sc-cve\sc-cve-dao\src\main\java\">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+        <!-- targetProject:mapper映射文件生成的位置 -->
+		<sqlMapGenerator targetPackage="META-INF/mybatis/mapper"
+			targetProject="D:\work_idea\sc\sc-cve\sc-cve-dao\src\main\resources">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<!-- targetPackage：mapper接口生成的位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.vivo.cve.dao.mapper"
+			targetProject="D:\work_idea\sc\sc-cve\sc-cve-dao\src\main\java\">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+		<!-- 指定数据库表 -->
+		<table tableName="tb_lianjia_info" domainObjectName="TbLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_sz_lianjia_info" domainObjectName="TbSzLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_xm_lianjia_info" domainObjectName="TbXmLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_fz_lianjia_info" domainObjectName="TbFzLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_sh_lianjia_info" domainObjectName="TbShLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_hz_lianjia_info" domainObjectName="TbHzLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_wh_lianjia_info" domainObjectName="TbWhLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_nj_lianjia_info" domainObjectName="TbNjLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_gz_lianjia_info" domainObjectName="TbGzLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_tj_lianjia_info" domainObjectName="TbTjLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_cd_lianjia_info" domainObjectName="TbCdLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_cq_lianjia_info" domainObjectName="TbCqLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_zs_lianjia_info" domainObjectName="TbZsLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_wz_lianjia_info" domainObjectName="TbWzLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_km_lianjia_info" domainObjectName="TbKmLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_gy_lianjia_info" domainObjectName="TbGyLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_qd_lianjia_info" domainObjectName="TbQdLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+		<table tableName="tb_dl_lianjia_info" domainObjectName="TbDlLianjiaInfo"	enableCountByExample="true" enableUpdateByExample="true"			enableDeleteByExample="true" enableSelectByExample="true"			selectByExampleQueryId="true"></table>
+
+	</context>
+</generatorConfiguration>
