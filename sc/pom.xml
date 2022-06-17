@@ -37,7 +37,7 @@
         <aspectjrt.version>1.7.3</aspectjrt.version>
         <mybatis.version>3.4.6</mybatis.version>
         <druid.version>1.1.7</druid.version>
-        <fastjson.version>1.2.8</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
     </properties>
 
 
